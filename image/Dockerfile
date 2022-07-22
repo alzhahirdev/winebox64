@@ -21,11 +21,10 @@ RUN apt update
 RUN apt install -y libc6 box64
 
 ## install box86
-RUN dpkg --add-architecture armhf \
-    wget https://ryanfortner.github.io/box86-debs/box86.list -O /etc/apt/sources.list.d/box64.list \
-    wget -O- https://ryanfortner.github.io/box86-debs/KEY.gpg | gpg --dearmor |  tee /usr/share/keyrings/box86-debs-archive-keyring.gpg \
-    apt update\
-    apt install -y libc6:armhf box86
+RUN dpkg --add-architecture armhf
+RUN wget https://ryanfortner.github.io/box86-debs/box86.list -O /etc/apt/sources.list.d/box64.list
+RUN wget -O- https://ryanfortner.github.io/box86-debs/KEY.gpg | gpg --dearmor |  tee /usr/share/keyrings/box86-debs-archive-keyring.gpg
+RUN apt update && apt install -y libc6:armhf box86
 
 ## add amd64 architecture to prepare for wine
 RUN dpkg --add-architecture amd64
