@@ -35,7 +35,7 @@ RUN apt-add-repository --remove 'deb https://download.opensuse.org/repositories/
 RUN wget -nc -O /usr/share/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
 RUN wget -nc -P /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources
 RUN apt update; exit 0;
-RUN apt install -y --install-recommends wine-stable:amd64
+RUN apt install -y --install-recommends libc6:amd64 wine-stable:amd64
 
 ## setup winetricks
 RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
