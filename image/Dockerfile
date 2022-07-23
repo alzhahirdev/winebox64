@@ -29,6 +29,9 @@ RUN apt update && apt install -y libc6:armhf box86
 ## add amd64 architecture to prepare for wine
 RUN dpkg --add-architecture amd64
 
+## add x86 architecture to prepare for wine
+RUN dpkg --add-architecture i386
+
 ## arch-qualify the current repositories
 RUN sed -i "s/deb h/deb [arch=arm64] h/g" /etc/apt/sources.list
 
@@ -45,13 +48,35 @@ RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security mai
 RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
 
+## add i386's repos
+RUN echo "# i386 repositories" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal main restricted" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-updates main restricted" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal universe" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-updates universe" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-updates multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security main restricted" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
+
 ## add winehq repo and install wine
-RUN apt update; exit 0;
-RUN apt-add-repository --remove 'deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Ubuntu_20.04_standard ./'
-RUN wget -nc -O /usr/share/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
-RUN wget -nc -P /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources
-RUN apt update && apt clean && apt upgrade -y; exit 0;
-RUN apt install -y --install-recommends libncurses5:amd64 libncurses6:amd64 wine-stable
+#RUN apt update; exit 0;
+#RUN apt-add-repository --remove 'deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Ubuntu_20.04_standard ./'
+#RUN wget -nc -O /usr/share/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+#RUN wget -nc -P /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources
+#RUN apt update && apt clean && apt upgrade -y; exit 0;
+#RUN apt install -y --install-recommends libncurses5:amd64 libncurses6:amd64 wine-stable cabextract xvfb
+
+# Install winehq-stable and with recommends
+RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
+        && apt-key add winehq.key \
+        && echo "deb https://dl.winehq.org/wine-builds/debian/ bullseye main" >> /etc/apt/sources.list \
+        && wget -O- -q download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_11/Release.key | apt-key add - \
+        && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_11 ./" | tee /etc/apt/sources.list.d/wine-obs.list \
+        && apt update \
+		&& apt install -y --install-recommends libncurses5:i386 libncurses6:i386 winehq-stable cabextract xvfb
 
 ## setup winetricks
 RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
