@@ -20,14 +20,14 @@ RUN apt update
 ## install dependencies and box64 itself
 RUN apt install -y libc6 libstdc++6 box64
 
-## arch-qualify the current repositories
-RUN sed -i "s/deb h/deb [arch=arm64] h/g" /etc/apt/sources.list
-
 ## install box86
 RUN dpkg --add-architecture armhf
 RUN wget https://ryanfortner.github.io/box86-debs/box86.list -O /etc/apt/sources.list.d/box64.list
 RUN wget -O- https://ryanfortner.github.io/box86-debs/KEY.gpg | gpg --dearmor |  tee /usr/share/keyrings/box86-debs-archive-keyring.gpg
 RUN apt update && apt install -y libc6:armhf box86
+
+## arch-qualify the current repositories
+RUN sed -i "s/deb h/deb [arch=arm64] h/g" /etc/apt/sources.list
 
 ## add amd64 architecture to prepare for wine
 RUN dpkg --add-architecture amd64
