@@ -10,7 +10,7 @@ ENV USER=container HOME=/home/container
 
 ## install dependencies
 RUN apt update && apt upgrade -y
-RUN apt install -y gnupg2 tzdata software-properties-common libntlm0 winbind xvfb xauth python3 wget ca-certificates locales apt-transport-https
+RUN apt install -y iproute2 gnupg2 tzdata software-properties-common libntlm0 winbind xvfb xauth python3 wget ca-certificates locales apt-transport-https
 
 ## add ryanfortner's box64 repo
 RUN wget https://ryanfortner.github.io/box64-debs/box64.list -O /etc/apt/sources.list.d/box64.list
