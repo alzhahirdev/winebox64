@@ -44,7 +44,6 @@ RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal-backports 
 RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal-security main restricted" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal-security universe" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal-security multiverse" >> /etc/apt/sources.list
-RUN apt-get update
 
 ## add winehq repo and install wine
 RUN apt update; exit 0;
