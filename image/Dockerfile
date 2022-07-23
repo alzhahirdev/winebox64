@@ -18,7 +18,7 @@ RUN wget -O- https://ryanfortner.github.io/box64-debs/KEY.gpg | gpg --dearmor | 
 RUN apt update
 
 ## install dependencies and box64 itself
-RUN apt install -y libc6 box64
+RUN apt install -y libc6 libc++6 box64
 
 ## install box86
 RUN dpkg --add-architecture armhf
@@ -61,6 +61,8 @@ RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security main
 RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
 RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
 
+RUN apt update && apt install -y libc++6:amd64 libc++6:i386
+
 ## add winehq repo and install wine
 #RUN apt update; exit 0;
 #RUN apt-add-repository --remove 'deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Ubuntu_20.04_standard ./'
@@ -72,9 +74,9 @@ RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security mult
 # Install winehq-stable and with recommends
 RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
         && apt-key add winehq.key \
-        && echo "deb https://dl.winehq.org/wine-builds/debian/ bullseye main" >> /etc/apt/sources.list \
-        && wget -O- -q download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_11/Release.key | apt-key add - \
-        && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_11 ./" | tee /etc/apt/sources.list.d/wine-obs.list \
+        && echo "deb https://dl.winehq.org/wine-builds/ubuntu/ focal main" >> /etc/apt/sources.list \
+        && wget -O- -q download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key | apt-key add - \
+        && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04 ./" | tee /etc/apt/sources.list.d/wine-obs.list \
         && apt update \
 		&& apt install -y --install-recommends libncurses5:i386 libncurses6:i386 winehq-stable cabextract xvfb
 
