@@ -18,7 +18,7 @@ RUN wget -O- https://ryanfortner.github.io/box64-debs/KEY.gpg | gpg --dearmor | 
 RUN apt update
 
 ## install dependencies and box64 itself
-RUN apt install -y libc6 libc++6 box64
+RUN apt install -y libc6 libstdc++6 box64
 
 ## install box86
 RUN dpkg --add-architecture armhf
@@ -61,7 +61,7 @@ RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security main
 RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
 RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
 
-RUN apt update && apt install -y libc++6:amd64 libc++6:i386
+RUN apt update && apt install -y libstdc++6:amd64 libstdc++6:i386
 
 ## add winehq repo and install wine
 #RUN apt update; exit 0;
