@@ -29,6 +29,23 @@ RUN apt update && apt install -y libc6:armhf box86
 ## add amd64 architecture to prepare for wine
 RUN dpkg --add-architecture amd64
 
+## arch-qualify the current repositories
+RUN sed -i "s/deb h/deb [arch=arm64] h/g" /etc/apt/sources.list
+
+## add amd64's repos
+RUN echo "# amd64 repositories" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal main restricted" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal-updates main restricted" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal universe" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal-updates universe" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal-updates multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal-backports main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal-security main restricted" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal-security universe" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64] http://ports.ubuntu.com/ubuntu-ports focal-security multiverse" >> /etc/apt/sources.list
+RUN apt-get update
+
 ## add winehq repo and install wine
 RUN apt update; exit 0;
 RUN apt-add-repository --remove 'deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Ubuntu_20.04_standard ./'
