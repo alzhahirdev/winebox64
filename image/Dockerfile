@@ -45,7 +45,7 @@ RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security mai
 RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
 RUN apt update && apt upgrade -y
-RUN apt-get install libgnutls30:amd64 libldap-2.4-2:amd64 libgpg-error0:amd64 libxml2:amd64 libasound2-plugins:amd64 libsdl2-2.0-0:amd64 libfreetype6:amd64 libdbus-1-3:amd64 libsqlite3-0:amd64 -y
+#RUN apt-get install libgnutls30:amd64 libldap-2.4-2:amd64 libgpg-error0:amd64 libxml2:amd64 libasound2-plugins:amd64 libsdl2-2.0-0:amd64 libfreetype6:amd64 libdbus-1-3:amd64 libsqlite3-0:amd64 -y
 
 ## add x86 architecture to prepare for wine
 #RUN dpkg --add-architecture i386
@@ -78,7 +78,7 @@ RUN apt-get install libgnutls30:amd64 libldap-2.4-2:amd64 libgpg-error0:amd64 li
 RUN apt-add-repository -r 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
 RUN wget -q https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key -O Release.key -O- | apt-key add -
 RUN apt-add-repository 'deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/ ./'
-RUN apt update && apt install --install-recommends winehq-stable -y
+RUN apt update && apt install --install-recommends wine-stable=7.0.0.0 -y
 
 # Install winehq-stable and with recommends
 #RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
