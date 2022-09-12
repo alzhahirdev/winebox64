@@ -60,16 +60,16 @@ RUN dpkg --add-architecture i386
 
 ## add amd64 and i386's repos
 RUN echo "# both amd64 and i386 repositories" >> /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ focal main restricted" >> /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ focal-updates main restricted" >> /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ focal universe" >> /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ focal-updates universe" >> /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ focal multiverse" >> /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ focal-updates multiverse" >> /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb http://security.ubuntu.com/ubuntu/ focal-security main restricted" >> /etc/apt/sources.list
-RUN echo "deb http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
-RUN echo "deb http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ focal main restricted" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ focal-updates main restricted" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ focal universe" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ focal-updates universe" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ focal multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ focal-updates multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security main restricted" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
+RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
 
 ## add i386's repos
 #RUN echo "# i386 repositories" >> /etc/apt/sources.list
