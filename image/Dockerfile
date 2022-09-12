@@ -61,7 +61,7 @@ RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security mul
 #RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
 #RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
 
-RUN apt update && apt install -y libstdc++6:amd64
+#RUN apt update && apt install -y libstdc++6:amd64
 
 ## add winehq repo and install wine
 #RUN apt update; exit 0;
@@ -78,7 +78,7 @@ RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
         && wget -O- -q download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key | apt-key add - \
         && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04 ./" | tee /etc/apt/sources.list.d/wine-obs.list \
         && apt update \
-		&& apt install -y --install-recommends libncurses5:amd64 libncurses6:amd64 winehq-stable cabextract xvfb
+		&& apt install -y --install-recommends libncurses5:amd64 libncurses6:amd64 winehq-stable cabextract xvfb winbind
 
 ## setup winetricks
 RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
