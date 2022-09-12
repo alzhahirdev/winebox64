@@ -32,9 +32,6 @@ RUN sed -i "s/deb h/deb [arch=arm64] h/g" /etc/apt/sources.list
 ## add amd64 architecture to prepare for wine
 RUN dpkg --add-architecture amd64
 
-## add x86 architecture to prepare for wine
-# RUN dpkg --add-architecture i386
-
 ## add amd64's repos
 RUN echo "# amd64 repositories" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal main restricted" >> /etc/apt/sources.list
@@ -47,19 +44,24 @@ RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal-backports mai
 RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security main restricted" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
+RUN apt update
+
+## add x86 architecture to prepare for wine
+RUN dpkg --add-architecture i386
 
 ## add i386's repos
-#RUN echo "# i386 repositories" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal main restricted" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-updates main restricted" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal universe" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-updates universe" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal multiverse" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-updates multiverse" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security main restricted" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
+RUN echo "# i386 repositories" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal main restricted" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-updates main restricted" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal universe" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-updates universe" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-updates multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security main restricted" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
+RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
+RUN apt update
 
 #RUN apt update && apt install -y libstdc++6:amd64
 
@@ -86,7 +88,7 @@ RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks
 
 ENV HOME=/home/container
 ENV WINEARCH=win64
-ENV WINEPREFIX=/home/container/.wine
+ENV WINEPREFIX=/home/container/.wine64
 ENV WINEDLLOVERRIDES="mscoree,mshtml="
 ENV DISPLAY=:0
 ENV DISPLAY_WIDTH=1024
