@@ -78,7 +78,7 @@ RUN apt update && apt upgrade -y
 RUN apt-add-repository -r 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
 RUN wget -q https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key -O Release.key -O- | apt-key add -
 RUN apt-add-repository 'deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/ ./'
-RUN apt update && apt install --install-recommends wine-stable=7.0.0.0 -y
+RUN apt update && apt install --install-recommends wine-devel=7.17 -y
 
 # Install winehq-stable and with recommends
 #RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
