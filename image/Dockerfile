@@ -44,7 +44,7 @@ RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal-backports mai
 RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security main restricted" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
-RUN apt update
+RUN apt update && apt upgrade -y
 
 ## add x86 architecture to prepare for wine
 RUN dpkg --add-architecture i386
@@ -61,7 +61,7 @@ RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-backports main
 RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security main restricted" >> /etc/apt/sources.list
 RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
 RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
-RUN apt update
+RUN apt update && apt upgrade -y
 
 #RUN apt update && apt install -y libstdc++6:amd64
 
@@ -73,14 +73,19 @@ RUN apt update
 #RUN apt update && apt clean && apt upgrade -y; exit 0;
 #RUN apt install -y --install-recommends libncurses5:amd64 libncurses6:amd64 wine-stable cabextract xvfb
 
+#Alternative method using openSUSE
+RUN wget -q https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key -O Release.key -O- | sudo apt-key add -
+RUN apt-add-repository 'deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/ ./'
+RUN apt update && apt install --install-recommends winehq-stable -y
+
 # Install winehq-stable and with recommends
-RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
-        && apt-key add winehq.key \
-        && echo "deb https://dl.winehq.org/wine-builds/ubuntu/ focal main" >> /etc/apt/sources.list \
-        && wget -O- -q download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key | apt-key add - \
-        && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04 ./" | tee /etc/apt/sources.list.d/wine-obs.list \
-        && apt update \
-		&& apt install -y --install-recommends libncurses5:amd64 libncurses6:amd64 wine-stable cabextract xvfb winbind
+#RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
+#        && apt-key add winehq.key \
+#        && echo "deb https://dl.winehq.org/wine-builds/ubuntu/ focal main" >> /etc/apt/sources.list \
+#        && wget -O- -q download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key | apt-key add - \
+#        && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04 ./" | tee /etc/apt/sources.list.d/wine-obs.list \
+#        && apt update \
+#		&& apt install -y --install-recommends libncurses5:amd64 libncurses6:amd64 wine-stable cabextract xvfb winbind
 
 ## setup winetricks
 RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
