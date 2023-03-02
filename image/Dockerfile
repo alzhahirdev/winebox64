@@ -12,13 +12,18 @@ ENV USER=container HOME=/home/container
 RUN apt update && apt upgrade -y
 RUN apt install -y iproute2 gnupg2 tzdata software-properties-common libntlm0 winbind xvfb xauth python3 wget ca-certificates locales apt-transport-https
 
+RUN export BOX86_PATH=~/wine/bin/ \
+        && export BOX86_LD_LIBRARY_PATH=~/wine/lib/wine/i386-unix/:/lib/i386-linux-gnu:/lib/aarch64-linux-gnu/ \
+        && export BOX64_PATH=~/wine64/bin/ \
+        && export BOX64_LD_LIBRARY_PATH=~/wine64/lib/i386-unix/:~/wine64/lib/wine/x86_64-unix/:/lib/i386-linux-gnu/:/lib/x86_64-linux-gnu:/lib/aarch64-linux-gnu/
+
 ## add ryanfortner's box64 repo
 RUN wget https://ryanfortner.github.io/box64-debs/box64.list -O /etc/apt/sources.list.d/box64.list
 RUN wget -O- https://ryanfortner.github.io/box64-debs/KEY.gpg | gpg --dearmor |  tee /usr/share/keyrings/box64-debs-archive-keyring.gpg
 RUN apt update
 
 ## install dependencies and box64 itself
-RUN apt install -y libc6 libstdc++6 box64
+RUN apt install -y libc6 libstdc++6 mesa* zenity* box64
 
 ## install box86
 RUN dpkg --add-architecture armhf
@@ -32,7 +37,7 @@ RUN apt update && apt install libasound2 libc6:armhf libglib2.0-0 libgphoto2-6 l
         libldap-2.4-2:armhf libopenal1:armhf libpcap0.8:armhf libpulse0:armhf libsane1:armhf libudev1:armhf \
         libunwind8:armhf libusb-1.0-0:armhf libvkd3d1:armhf libx11-6:armhf libxext6:armhf ocl-icd-libopencl1:armhf \
         libasound2-plugins:armhf libncurses6:armhf libmpeg2-4:armhf libmpeg2encpp-2.1-0:armhf libtinfo6:armhf \
-        libmpg123-0:armhf libtinfo5:armhf cabextract libxslt1.1:armhf zenity box86 -y
+        libmpg123-0:armhf libtinfo5:armhf cabextract libxslt1.1:armhf zenity:armhf libstdc++6:armhf mesa*:armhf box86 -y
 
 ## arch-qualify the current repositories
 RUN sed -i "s/deb h/deb [arch=arm64] h/g" /etc/apt/sources.list
@@ -108,7 +113,7 @@ RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
 #        && wget -O- -q download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key | apt-key add - \
 #        && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04 ./" | tee /etc/apt/sources.list.d/wine-obs.list \
         && apt update \
-		&& apt install -y --install-recommends libncurses5:amd64 libncurses6:amd64 wine32:i386 wine64 wine cabextract
+		&& apt install -y --install-recommends libncurses5:amd64 libncurses6:amd64 wine64 cabextract
 
 ## setup winetricks
 RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
