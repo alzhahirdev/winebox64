@@ -32,7 +32,7 @@ RUN wget -O- https://ryanfortner.github.io/box86-debs/KEY.gpg | gpg --dearmor | 
 RUN apt update && apt install libasound2 libc6:armhf libglib2.0-0 libgphoto2-6 libgphoto2-port12 \
         libgstreamer-plugins-base1.0-0 libgstreamer1.0-0 libldap-2.4-2 libopenal1 libpcap0.8 libpulse0 \
         libsane1 libudev1 libunwind8 libusb-1.0-0 libvkd3d1 libx11-6 libxext6 ocl-icd-libopencl1 \
-        libasound2-plugins libncurses6 libtinfo5 libasound2:armhf libc6:armhf libglib2.0-0:armhf \
+        libasound2-plugins libncurses6 libtinfo5 libasound2:armhf libstdc++6:armhf libglib2.0-0:armhf \
         libgphoto2-6:armhf libgphoto2-port12:armhf libgstreamer-plugins-base1.0-0:armhf libgstreamer1.0-0:armhf \
         libldap-2.4-2:armhf libopenal1:armhf libpcap0.8:armhf libpulse0:armhf libsane1:armhf libudev1:armhf \
         libunwind8:armhf libusb-1.0-0:armhf libvkd3d1:armhf libx11-6:armhf libxext6:armhf ocl-icd-libopencl1:armhf \
