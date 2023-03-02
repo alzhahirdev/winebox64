@@ -37,7 +37,7 @@ RUN apt update && apt install libasound2 libc6:armhf libglib2.0-0 libgphoto2-6 l
         libldap-2.4-2:armhf libopenal1:armhf libpcap0.8:armhf libpulse0:armhf libsane1:armhf libudev1:armhf \
         libunwind8:armhf libusb-1.0-0:armhf libvkd3d1:armhf libx11-6:armhf libxext6:armhf ocl-icd-libopencl1:armhf \
         libasound2-plugins:armhf libncurses6:armhf libmpeg2-4:armhf libmpeg2encpp-2.1-0:armhf libtinfo6:armhf \
-        libmpg123-0:armhf libtinfo5:armhf cabextract libxslt1.1:armhf zenity:armhf libstdc++6:armhf mesa*:armhf box86 -y
+        libmpg123-0:armhf libtinfo5:armhf cabextract libxslt1.1:armhf zenity:armhf mesa*:armhf box86 -y
 
 ## arch-qualify the current repositories
 RUN sed -i "s/deb h/deb [arch=arm64] h/g" /etc/apt/sources.list
@@ -116,7 +116,7 @@ RUN     mkdir -pm755 /etc/apt/keyrings \
 #        && wget -O- -q download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key | apt-key add - \
 #        && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04 ./" | tee /etc/apt/sources.list.d/wine-obs.list \
         && apt update \
-		&& apt install -y --install-recommends libncurses5:amd64 libncurses6:amd64 winehq-stable cabextract
+		&& apt install -y --install-recommends libgcc-s1=10.3.0-1ubuntu1~20.04:amd64 libstdc++6=10.3.0-1ubuntu1~20.04:amd64 libncurses5:amd64 libncurses6:amd64 wine cabextract
 
 ## setup winetricks
 RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
