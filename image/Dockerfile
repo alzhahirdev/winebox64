@@ -116,7 +116,7 @@ RUN     mkdir -pm755 /etc/apt/keyrings \
 #        && wget -O- -q download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key | apt-key add - \
 #        && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04 ./" | tee /etc/apt/sources.list.d/wine-obs.list \
         && apt update \
-		&& apt install -y --install-recommends libgcc-s1:amd64=10.3.0-1ubuntu1~20.04 libstdc++6:amd64=10.3.0-1ubuntu1~20.04 libncurses5:amd64 libncurses6:amd64 wine cabextract
+		&& apt install -y --install-recommends libgcc-s1:amd64=10.3.0-1ubuntu1~20.04 libncurses5:amd64 libncurses6:amd64 wine cabextract
 
 ## setup winetricks
 RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
