@@ -122,6 +122,7 @@ RUN cd ~ \
         ln -s ~/wine/bin/winecfg /usr/local/bin/winecfg \
         ln -s ~/wine/bin/wineserver /usr/local/bin/wineserver \
         chmod +x /usr/local/bin/wine /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver
+        echo 'alias wine64="WINEPREFIX=~/.wine64 wine"' >> .bashrc
 
 # Install winehq-stable and with recommends
 #RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
@@ -140,7 +141,7 @@ RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks
         && chmod +x /usr/sbin/winetricks
 
 ENV HOME=/home/container
-ENV WINEARCH=win64
+ENV WINEARCH=win64 wine winecfg
 ENV WINEPREFIX=/home/container/.wine64
 ENV WINEDLLOVERRIDES="mscoree,mshtml="
 ENV DISPLAY=:0
