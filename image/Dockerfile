@@ -107,7 +107,7 @@ RUN apt update && apt upgrade -y
 #RUN apt update && apt install --install-recommends wine-devel -y
 
 # Install wine manually
-RUN cd
+RUN cd ~
 RUN mkdir wine-installer
 RUN cd wine-installer
 RUN wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_6.0.4~focal-1_amd64.deb
