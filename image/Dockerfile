@@ -45,21 +45,6 @@ RUN sed -i "s/deb h/deb [arch=arm64] h/g" /etc/apt/sources.list
 ## add amd64 architecture to prepare for wine
 RUN dpkg --add-architecture amd64
 
-## add amd64's repos
-#RUN echo "# amd64 repositories" >> /etc/apt/sources.list
-#RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal main restricted" >> /etc/apt/sources.list
-#RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal-updates main restricted" >> /etc/apt/sources.list
-#RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal universe" >> /etc/apt/sources.list
-#RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal-updates universe" >> /etc/apt/sources.list
-#RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal multiverse" >> /etc/apt/sources.list
-#RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal-updates multiverse" >> /etc/apt/sources.list
-#RUN echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse" >> /etc/apt/sources.list
-#RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security main restricted" >> /etc/apt/sources.list
-#RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
-#RUN echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
-#RUN apt update && apt upgrade -y
-#RUN apt-get install libgnutls30:amd64 libldap-2.4-2:amd64 libgpg-error0:amd64 libxml2:amd64 libasound2-plugins:amd64 libsdl2-2.0-0:amd64 libfreetype6:amd64 libdbus-1-3:amd64 libsqlite3-0:amd64 -y
-
 ## add x86 architecture to prepare for wine
 RUN dpkg --add-architecture i386
 
@@ -75,66 +60,65 @@ RUN echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ focal-backport
 RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security main restricted" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
-
-## add i386's repos
-#RUN echo "# i386 repositories" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal main restricted" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-updates main restricted" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal universe" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-updates universe" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal multiverse" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-updates multiverse" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ focal-backports main restricted universe multiverse" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security main restricted" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
-#RUN echo "deb [arch=i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
 RUN apt update && apt upgrade -y
 
-#RUN apt update && apt install -y libstdc++6:amd64
-
-## add winehq repo and install wine
-#RUN apt update; exit 0;
-#RUN apt-add-repository --remove 'deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Ubuntu_20.04_standard ./'
-#RUN wget -nc -O /usr/share/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
-#RUN wget -nc -P /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources
-#RUN apt update && apt clean && apt upgrade -y; exit 0;
-#RUN apt install -y --install-recommends libncurses5:amd64 libncurses6:amd64 wine-stable cabextract xvfb
-
-#Alternative method using openSUSE
-#RUN apt-add-repository -r 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
-#RUN wget -q https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key -O Release.key -O- | apt-key add -
-#RUN apt-add-repository 'deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/ ./'
-#RUN apt update && apt install --install-recommends wine-devel -y
-
 # Install wine manually
-RUN cd /home/container \
-        mkdir wine-installer \
-        cd wine-installer \
-        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_6.0.4~focal-1_amd64.deb \
-        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable_6.0.4~focal-1_i386.deb \
-        dpkg-deb -xv wine-stable_6.0.4~focal-1_amd64.deb . \
-        dpkg-deb -xv wine-stable_6.0.4~focal-1_i386.deb . \
-        ls -a \
-        mv ~/wine-installer/opt/wine* ~/wine \
-        rm -rf wine-installer \
-        ln -s /home/container/wine/bin/wine /usr/local/bin/wine \
-        ln -s /home/container/wine/bin/wineboot /usr/local/bin/wineboot \
-        ln -s /home/container/wine/bin/winecfg /usr/local/bin/winecfg \
-        ln -s /home/container/wine/bin/wineserver /usr/local/bin/wineserver \
-        chmod +x /usr/local/bin/wine /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver \
-        echo 'alias wine64="WINEPREFIX=~/.wine64 wine"' >> ~/.bashrc
+#example: devel, staging, or stable (wine-staging 4.5+ requires libfaudio0:i386)
+RUN local branch="stable" \
+        #example: "7.1"
+	local version="7.1" \
+        #example: debian, ubuntu
+	local id="ubuntu" \
+        #example (for debian): bullseye, buster, jessie, wheezy, ${VERSION_CODENAME}, etc 
+	local dist="focal" \
+	local tag="-1"
+        #example: -1 (some wine .deb files have -1 tag on the end and some don't)
 
-# Install winehq-stable and with recommends
-#RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
-        #&& apt-key add winehq.key \
-#RUN     mkdir -pm755 /etc/apt/keyrings \
-#        && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
-#        && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources \
-#        && echo "deb https://dl.winehq.org/wine-builds/ubuntu/ focal main" >> /etc/apt/sources.list \
-#        && wget -O- -q download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key | apt-key add - \
-#        && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04 ./" | tee /etc/apt/sources.list.d/wine-obs.list \
-#        && apt update \
-#		&& apt install -y --install-recommends libgcc-s1:amd64=10.3.0-1ubuntu1~20.04 libncurses5:amd64 libncurses6:amd64 wine:amd64=8.0.0.0~focal-1 cabextract
+# Wine download links from WineHQ: https://dl.winehq.org/wine-builds/
+        #amd64-wine links
+RUN LNKA="https://dl.winehq.org/wine-builds/${id}/dists/${dist}/main/binary-amd64/" \
+        #wine64 main bin
+	DEB_A1="wine-${branch}-amd64_${version}~${dist}${tag}_amd64.deb" \
+        #wine64 support files (required for wine64 / can work alongside wine_i386 main bin)
+	DEB_A2="wine-${branch}_${version}~${dist}${tag}_amd64.deb" \
+	#DEB_A3="winehq-${branch}_${version}~${dist}${tag}_amd64.deb" #shortcuts & docs
+        #i386-wine links
+	LNKB="https://dl.winehq.org/wine-builds/${id}/dists/${dist}/main/binary-i386/" \
+        #wine_i386 main bin
+	DEB_B1="wine-${branch}-i386_${version}~${dist}${tag}_i386.deb" \
+        #wine_i386 support files (required for wine_i386 if no wine64 / CONFLICTS WITH wine64 support files)
+	DEB_B2="wine-${branch}_${version}~${dist}${tag}_i386.deb" \
+	#DEB_B3="winehq-${branch}_${version}~${dist}${tag}_i386.deb" #shortcuts & docs
+
+	# Install amd64-wine (64-bit) alongside i386-wine (32-bit)
+	#echo -e "Downloading wine . . ."
+	wget -q ${LNKA}${DEB_A1} \
+	wget -q ${LNKA}${DEB_A2} \
+	wget -q ${LNKB}${DEB_B1} \
+	#echo -e "Extracting wine . . ."
+	dpkg-deb -x ${DEB_A1} wine-installer \
+	dpkg-deb -x ${DEB_A2} wine-installer \
+	dpkg-deb -x ${DEB_B1} wine-installer \
+	#echo -e "Installing wine . . ."
+	mv wine-installer/opt/wine* ~/wine
+
+#RUN cd /home/container \
+#        mkdir wine-installer \
+#        cd wine-installer \
+#        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_6.0.4~focal-1_amd64.deb \
+#        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable_6.0.4~focal-1_i386.deb \
+#        dpkg-deb -xv wine-stable_6.0.4~focal-1_amd64.deb . \
+#        dpkg-deb -xv wine-stable_6.0.4~focal-1_i386.deb . \
+#        ls -a \
+#        mv ~/wine-installer/opt/wine* ~/wine \
+#        rm -rf wine-installer \
+#        ln -s /home/container/wine/bin/wine /usr/local/bin/wine \
+#        ln -s /home/container/wine/bin/wine64 /usr/local/bin/wine64 \
+#        ln -s /home/container/wine/bin/wineboot /usr/local/bin/wineboot \
+#        ln -s /home/container/wine/bin/winecfg /usr/local/bin/winecfg \
+#        ln -s /home/container/wine/bin/wineserver /usr/local/bin/wineserver \
+#        chmod +x /usr/local/bin/wine /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver \
+#        echo 'alias wine64="WINEPREFIX=~/.wine64 wine"' >> ~/.bashrc
 
 ## setup winetricks
 RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
