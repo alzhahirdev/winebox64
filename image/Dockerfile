@@ -107,16 +107,16 @@ RUN apt update && apt upgrade -y
 #RUN apt update && apt install --install-recommends wine-devel -y
 
 # Install wine manually
-RUN cd ~
-RUN mkdir wine-installer
-RUN cd wine-installer
-RUN wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_6.0.4~focal-1_amd64.deb
-RUN wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable_6.0.4~focal-1_i386.deb
-RUN dpkg-deb -xv wine-stable_6.0.4~focal-1_amd64.deb .
-RUN dpkg-deb -xv wine-stable_6.0.4~focal-1_i386.deb .
-RUN ls -a
-RUN mv ~/wine-installer/opt/wine* ~/wine
-RUN rm -rf wine-installer
+RUN cd ~ \
+        mkdir wine-installer \
+        cd wine-installer \
+        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_6.0.4~focal-1_amd64.deb \
+        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable_6.0.4~focal-1_i386.deb \
+        dpkg-deb -xv wine-stable_6.0.4~focal-1_amd64.deb . \
+        dpkg-deb -xv wine-stable_6.0.4~focal-1_i386.deb . \
+        ls -a \
+        mv ~/wine-installer/opt/wine* ~/wine \
+        rm -rf wine-installer
 
 # Install winehq-stable and with recommends
 #RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
