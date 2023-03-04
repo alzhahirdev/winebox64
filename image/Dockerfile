@@ -116,7 +116,12 @@ RUN cd ~ \
         dpkg-deb -xv wine-stable_6.0.4~focal-1_i386.deb . \
         ls -a \
         mv ~/wine-installer/opt/wine* ~/wine \
-        rm -rf wine-installer
+        rm -rf wine-installer \
+        ln -s ~/wine/bin/wine /usr/local/bin/wine \
+        ln -s ~/wine/bin/wineboot /usr/local/bin/wineboot \
+        ln -s ~/wine/bin/winecfg /usr/local/bin/winecfg \
+        ln -s ~/wine/bin/wineserver /usr/local/bin/wineserver \
+        chmod +x /usr/local/bin/wine /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver
 
 # Install winehq-stable and with recommends
 #RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
