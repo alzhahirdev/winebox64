@@ -107,7 +107,7 @@ RUN apt update && apt upgrade -y
 #RUN apt update && apt install --install-recommends wine-devel -y
 
 # Install wine manually
-RUN cd ~ \
+RUN cd /home/container \
         mkdir wine-installer \
         cd wine-installer \
         wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_6.0.4~focal-1_amd64.deb \
@@ -117,10 +117,10 @@ RUN cd ~ \
         ls -a \
         mv ~/wine-installer/opt/wine* ~/wine \
         rm -rf wine-installer \
-        ln -s ~/wine/bin/wine /usr/local/bin/wine \
-        ln -s ~/wine/bin/wineboot /usr/local/bin/wineboot \
-        ln -s ~/wine/bin/winecfg /usr/local/bin/winecfg \
-        ln -s ~/wine/bin/wineserver /usr/local/bin/wineserver \
+        ln -s /home/container/wine/bin/wine /usr/local/bin/wine \
+        ln -s /home/container/wine/bin/wineboot /usr/local/bin/wineboot \
+        ln -s /home/container/wine/bin/winecfg /usr/local/bin/winecfg \
+        ln -s /home/container/wine/bin/wineserver /usr/local/bin/wineserver \
         chmod +x /usr/local/bin/wine /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver
         echo 'alias wine64="WINEPREFIX=~/.wine64 wine"' >> ~/.bashrc
 
@@ -141,7 +141,7 @@ RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks
         && chmod +x /usr/sbin/winetricks
 
 ENV HOME=/home/container
-ENV WINEARCH=win64 wine winecfg
+ENV WINEARCH=win64
 ENV WINEPREFIX=/home/container/.wine64
 ENV WINEDLLOVERRIDES="mscoree,mshtml="
 ENV DISPLAY=:0
