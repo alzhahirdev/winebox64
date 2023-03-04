@@ -106,17 +106,26 @@ RUN apt update && apt upgrade -y
 #RUN apt-add-repository 'deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/ ./'
 #RUN apt update && apt install --install-recommends wine-devel -y
 
+# Install wine manually
+RUN cd
+RUN wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_6.0.4~focal-1_amd64.deb
+RUN wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable_6.0.4~focal-1_i386.deb
+RUN dpkg-deb -xv wine-stable_6.0.4~focal-1_amd64.deb wine-installer
+RUN dpkg-deb -xv wine-stable_6.0.4~focal-1_i386.deb wine-installer
+RUN mv ~/wine-installer/opt/wine* ~/wine
+RUN rm -rf wine-installer
+
 # Install winehq-stable and with recommends
 #RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
         #&& apt-key add winehq.key \
-RUN     mkdir -pm755 /etc/apt/keyrings \
-        && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
-        && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources \
+#RUN     mkdir -pm755 /etc/apt/keyrings \
+#        && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
+#        && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources \
 #        && echo "deb https://dl.winehq.org/wine-builds/ubuntu/ focal main" >> /etc/apt/sources.list \
 #        && wget -O- -q download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key | apt-key add - \
 #        && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04 ./" | tee /etc/apt/sources.list.d/wine-obs.list \
-        && apt update \
-		&& apt install -y --install-recommends libgcc-s1:amd64=10.3.0-1ubuntu1~20.04 libncurses5:amd64 libncurses6:amd64 wine-stable:amd64=8.0.0.0~focal-1 cabextract
+#        && apt update \
+#		&& apt install -y --install-recommends libgcc-s1:amd64=10.3.0-1ubuntu1~20.04 libncurses5:amd64 libncurses6:amd64 wine:amd64=8.0.0.0~focal-1 cabextract
 
 ## setup winetricks
 RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
