@@ -63,14 +63,13 @@ RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-securit
 RUN apt update && apt upgrade -y
 
 # Install wine manually
-RUN cd ~/ \
-        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable-amd64_7.1~focal-1_amd64.deb
-RUN cd ~/ \
-        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_7.1~focal-1_amd64.deb
-RUN cd ~/ \
-        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable-i386_7.1~focal-1_i386.deb
-RUN cd ~/ \
+RUN mkdir ~/wine-installer \
+        cd ~/wine-installer \
+        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable-amd64_7.1~focal-1_amd64.deb \
+        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_7.1~focal-1_amd64.deb \
+        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable-i386_7.1~focal-1_i386.deb \
         wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable_7.1~focal-1_i386.deb
+
 RUN dpkg-deb -x wine-stable-amd64_7.1~focal-1_amd64.deb ~/wine-installer \
 	dpkg-deb -x wine-stable_7.1~focal-1_amd64.deb ~/wine-installer \
 	dpkg-deb -x wine-stable-i386_7.1~focal-1_i386.deb ~/wine-installer \
