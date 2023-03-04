@@ -114,6 +114,7 @@ RUN wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/
 RUN wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable_6.0.4~focal-1_i386.deb
 RUN dpkg-deb -xv wine-stable_6.0.4~focal-1_amd64.deb .
 RUN dpkg-deb -xv wine-stable_6.0.4~focal-1_i386.deb .
+RUN ls -a
 RUN mv ~/wine-installer/opt/wine* ~/wine
 RUN rm -rf wine-installer
 
