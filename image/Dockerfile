@@ -63,20 +63,20 @@ RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-securit
 RUN apt update && apt upgrade -y
 
 # Install wine manually
-#example: devel, staging, or stable (wine-staging 4.5+ requires libfaudio0:i386)
-RUN local branch="stable" \
+        #example: devel, staging, or stable (wine-staging 4.5+ requires libfaudio0:i386)
+RUN     local branch="stable" \
         #example: "7.1"
 	local version="7.1" \
         #example: debian, ubuntu
 	local id="ubuntu" \
         #example (for debian): bullseye, buster, jessie, wheezy, ${VERSION_CODENAME}, etc 
 	local dist="focal" \
-	local tag="-1"
+	local tag="-1" \
         #example: -1 (some wine .deb files have -1 tag on the end and some don't)
 
-# Wine download links from WineHQ: https://dl.winehq.org/wine-builds/
+        # Wine download links from WineHQ: https://dl.winehq.org/wine-builds/
         #amd64-wine links
-RUN LNKA="https://dl.winehq.org/wine-builds/${id}/dists/${dist}/main/binary-amd64/" \
+        LNKA="https://dl.winehq.org/wine-builds/${id}/dists/${dist}/main/binary-amd64/" \
         #wine64 main bin
 	DEB_A1="wine-${branch}-amd64_${version}~${dist}${tag}_amd64.deb" \
         #wine64 support files (required for wine64 / can work alongside wine_i386 main bin)
@@ -100,7 +100,15 @@ RUN LNKA="https://dl.winehq.org/wine-builds/${id}/dists/${dist}/main/binary-amd6
 	dpkg-deb -x ${DEB_A2} wine-installer \
 	dpkg-deb -x ${DEB_B1} wine-installer \
 	#echo -e "Installing wine . . ."
-	mv wine-installer/opt/wine* ~/wine
+	mv wine-installer/opt/wine* ~/wine \
+
+        # Install symlinks
+	sudo ln -s ~/wine/bin/wine /usr/local/bin/wine \
+	sudo ln -s ~/wine/bin/wine64 /usr/local/bin/wine64 \
+	sudo ln -s ~/wine/bin/wineboot /usr/local/bin/wineboot \
+	sudo ln -s ~/wine/bin/winecfg /usr/local/bin/winecfg \
+	sudo ln -s ~/wine/bin/wineserver /usr/local/bin/wineserver \
+	sudo chmod +x /usr/local/bin/wine /usr/local/bin/wine64 /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver
 
 #RUN cd /home/container \
 #        mkdir wine-installer \
