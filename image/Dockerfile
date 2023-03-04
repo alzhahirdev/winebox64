@@ -63,34 +63,23 @@ RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-securit
 RUN apt update && apt upgrade -y
 
 # Install wine manually
-        #example: devel, staging, or stable (wine-staging 4.5+ requires libfaudio0:i386)
-RUN     local branch="stable" \
-        #example: "7.1"
-	local version="7.1" \
-        #example: debian, ubuntu
-	local id="ubuntu" \
-        #example (for debian): bullseye, buster, jessie, wheezy, ${VERSION_CODENAME}, etc 
-	local dist="focal" \
-	local tag="-1" \
-        #example: -1 (some wine .deb files have -1 tag on the end and some don't)
-
         # Wine download links from WineHQ: https://dl.winehq.org/wine-builds/
         #amd64-wine links
-        LNKA="https://dl.winehq.org/wine-builds/${id}/dists/${dist}/main/binary-amd64/" \
+RUN     LNKA="https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/" \
         #wine64 main bin
-	DEB_A1="wine-${branch}-amd64_${version}~${dist}${tag}_amd64.deb" \
-        #wine64 support files (required for wine64 / can work alongside wine_i386 main bin)
-	DEB_A2="wine-${branch}_${version}~${dist}${tag}_amd64.deb" \
-	#DEB_A3="winehq-${branch}_${version}~${dist}${tag}_amd64.deb" #shortcuts & docs
+	DEB_A1="wine-stable-amd64_7.1~focal-1_amd64.deb" \
+        #wine64 support files (required for wine64 / can work alongsIDe wine_i386 main bin)
+	DEB_A2="wine-stable_7.1~focal-1_amd64.deb" \
+	#DEB_A3="winehq-stable_7.1~focal-1_amd64.deb" #shortcuts & docs
         #i386-wine links
-	LNKB="https://dl.winehq.org/wine-builds/${id}/dists/${dist}/main/binary-i386/" \
+	LNKB="https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/" \
         #wine_i386 main bin
-	DEB_B1="wine-${branch}-i386_${version}~${dist}${tag}_i386.deb" \
+	DEB_B1="wine-stable-i386_7.1~focal-1_i386.deb" \
         #wine_i386 support files (required for wine_i386 if no wine64 / CONFLICTS WITH wine64 support files)
-	DEB_B2="wine-${branch}_${version}~${dist}${tag}_i386.deb" \
-	#DEB_B3="winehq-${branch}_${version}~${dist}${tag}_i386.deb" #shortcuts & docs
+	DEB_B2="wine-stable_7.1~focal-1_i386.deb" \
+	#DEB_B3="winehq-stable_7.1~focal-1_i386.deb" #shortcuts & docs
 
-	# Install amd64-wine (64-bit) alongside i386-wine (32-bit)
+	# Install amd64-wine (64-bit) alongsIDe i386-wine (32-bit)
 	#echo -e "Downloading wine . . ."
 	wget -q ${LNKA}${DEB_A1} \
 	wget -q ${LNKA}${DEB_A2} \
