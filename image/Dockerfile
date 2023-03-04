@@ -63,41 +63,25 @@ RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-securit
 RUN apt update && apt upgrade -y
 
 # Install wine manually
-        # Wine download links from WineHQ: https://dl.winehq.org/wine-builds/
-        #amd64-wine links
-RUN     LNKA="https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/" \
-        #wine64 main bin
-	&& DEB_A1="wine-stable-amd64_7.1~focal-1_amd64.deb" \
-        #wine64 support files (required for wine64 / can work alongsIDe wine_i386 main bin)
-	&& DEB_A2="wine-stable_7.1~focal-1_amd64.deb" \
-	#DEB_A3="winehq-stable_7.1~focal-1_amd64.deb" #shortcuts & docs
-        #i386-wine links
-	&& LNKB="https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/" \
-        #wine_i386 main bin
-	&& DEB_B1="wine-stable-i386_7.1~focal-1_i386.deb" \
-        #wine_i386 support files (required for wine_i386 if no wine64 / CONFLICTS WITH wine64 support files)
-	&& DEB_B2="wine-stable_7.1~focal-1_i386.deb" \
-	#DEB_B3="winehq-stable_7.1~focal-1_i386.deb" #shortcuts & docs
-
-	# Install amd64-wine (64-bit) alongsIDe i386-wine (32-bit)
-	#echo -e "Downloading wine . . ."
-	&& wget -q ${LNKA}${DEB_A1} \
-	&& wget -q ${LNKA}${DEB_A2} \
-	&& wget -q ${LNKB}${DEB_B1} \
+RUN     wget -q https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable-amd64_7.1~focal-1_amd64.deb \
+	wget -q https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_7.1~focal-1_amd64.deb \
+	wget -q https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable-i386_7.1~focal-1_i386.deb \
+        wget -q https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable_7.1~focal-1_i386.deb \
 	#echo -e "Extracting wine . . ."
-	&& dpkg-deb -x ${DEB_A1} wine-installer \
-	&& dpkg-deb -x ${DEB_A2} wine-installer \
-	&& dpkg-deb -x ${DEB_B1} wine-installer \
+	dpkg-deb -x wine-stable-amd64_7.1~focal-1_amd64.deb wine-installer \
+	dpkg-deb -x wine-stable_7.1~focal-1_amd64.deb wine-installer \
+	dpkg-deb -x wine-stable-i386_7.1~focal-1_i386.deb wine-installer \
+        dpkg-deb -x wine-stable_7.1~focal-1_i386.deb wine-installer \
 	#echo -e "Installing wine . . ."
-	&& mv wine-installer/opt/wine* ~/wine \
+	mv wine-installer/opt/wine* ~/wine \
 
         # Install symlinks
-	&& ln -s ~/wine/bin/wine /usr/local/bin/wine \
-	&& ln -s ~/wine/bin/wine64 /usr/local/bin/wine64 \
-	&& ln -s ~/wine/bin/wineboot /usr/local/bin/wineboot \
-	&& ln -s ~/wine/bin/winecfg /usr/local/bin/winecfg \
-	&& ln -s ~/wine/bin/wineserver /usr/local/bin/wineserver \
-	&& chmod +x /usr/local/bin/wine /usr/local/bin/wine64 /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver
+	ln -s ~/wine/bin/wine /usr/local/bin/wine \
+	ln -s ~/wine/bin/wine64 /usr/local/bin/wine64 \
+	ln -s ~/wine/bin/wineboot /usr/local/bin/wineboot \
+	ln -s ~/wine/bin/winecfg /usr/local/bin/winecfg \
+	ln -s ~/wine/bin/wineserver /usr/local/bin/wineserver \
+	chmod +x /usr/local/bin/wine /usr/local/bin/wine64 /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver
 
 #RUN cd /home/container \
 #        mkdir wine-installer \
