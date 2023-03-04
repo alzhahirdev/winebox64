@@ -122,7 +122,7 @@ RUN cd ~ \
         ln -s ~/wine/bin/winecfg /usr/local/bin/winecfg \
         ln -s ~/wine/bin/wineserver /usr/local/bin/wineserver \
         chmod +x /usr/local/bin/wine /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver
-        echo 'alias wine64="WINEPREFIX=~/.wine64 wine"' >> .bashrc
+        echo 'alias wine64="WINEPREFIX=~/.wine64 wine"' >> ~/.bashrc
 
 # Install winehq-stable and with recommends
 #RUN     wget -nc https://dl.winehq.org/wine-builds/winehq.key \
