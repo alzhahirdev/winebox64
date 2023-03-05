@@ -62,26 +62,33 @@ RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-securit
 RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
 RUN apt update && apt upgrade -y
 
+# Install wine
+RUN mkdir -pm755 /etc/apt/keyrings \
+        && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
+        && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources \
+        && apt update \
+        && sudo apt install --install-recommends winehq-stable libstdc++6-
+
 # Install wine manually
-ARG WINEVER=8.0.0.0
-ARG WINEBRANCH=stable
-ARG WINETAG=-1
-ARG OSNAME=ubuntu
-ARG OSVER=focal
-ARG URL64=https://dl.winehq.org/wine-builds/${OSNAME}/dists/${OSVER}/main/binary-amd64/
-ARG URL86=https://dl.winehq.org/wine-builds/${OSNAME}/dists/${OSVER}/main/binary-i386/
+#ARG WINEVER=8.0.0.0
+#ARG WINEBRANCH=stable
+#ARG WINETAG=-1
+#ARG OSNAME=ubuntu
+#ARG OSVER=focal
+#ARG URL64=https://dl.winehq.org/wine-builds/${OSNAME}/dists/${OSVER}/main/binary-amd64/
+#ARG URL86=https://dl.winehq.org/wine-builds/${OSNAME}/dists/${OSVER}/main/binary-i386/
 
-RUN mkdir /home/container/wine-installer
-RUN cd /home/container \
-        && wget ${URL64}wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb \
-        && wget ${URL64}wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_amd64.deb \
-        && wget ${URL86}wine-${WINEBRANCH}-i386_${WINEVER}~${OSVER}-1_i386.deb \
-        && wget ${URL86}wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb
+#RUN mkdir /home/container/wine-installer
+#RUN cd /home/container \
+#        && wget ${URL64}wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb \
+#        && wget ${URL64}wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_amd64.deb \
+#        && wget ${URL86}wine-${WINEBRANCH}-i386_${WINEVER}~${OSVER}-1_i386.deb \
+#        && wget ${URL86}wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb
 
-RUN dpkg --force-all -i ~/wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb \
-	&& dpkg --force-all -i ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_amd64.deb \
-	&& dpkg --force-all -i ~/wine-${WINEBRANCH}-i386_${WINEVER}~${OSVER}-1_i386.deb \
-        && dpkg --force-all -i ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb
+#RUN dpkg --force-all -i ~/wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb \
+#	&& dpkg --force-all -i ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_amd64.deb \
+#	&& dpkg --force-all -i ~/wine-${WINEBRANCH}-i386_${WINEVER}~${OSVER}-1_i386.deb \
+#        && dpkg --force-all -i ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb
 
 # RUN mv /home/container/wine-installer/opt/wine* /home/container/wine
 
