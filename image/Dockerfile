@@ -67,7 +67,7 @@ RUN mkdir -pm755 /etc/apt/keyrings \
         && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
         && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources \
         && apt update \
-        && sudo apt install --install-recommends winehq-stable libstdc++6-
+        && apt install --install-recommends winehq-stable libstdc++6-
 
 # Install wine manually
 #ARG WINEVER=8.0.0.0
