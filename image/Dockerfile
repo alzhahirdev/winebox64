@@ -65,15 +65,15 @@ RUN apt update && apt upgrade -y
 # Install wine manually
 RUN mkdir /home/container/wine-installer
 RUN cd /home/container/wine-installer \
-        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable-amd64_7.1~focal-1_amd64.deb \
-        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_7.1~focal-1_amd64.deb \
-        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable-i386_7.1~focal-1_i386.deb \
-        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable_7.1~focal-1_i386.deb
+        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable-amd64_8.0.0.0~focal-1_amd64.deb \
+        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_8.0.0.0~focal-1_amd64.deb \
+        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable-i386_8.0.0.0~focal-1_i386.deb \
+        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable_8.0.0.0~focal-1_i386.deb
 
-RUN dpkg-deb -x wine-stable-amd64_7.1~focal-1_amd64.deb /home/container/wine-installer \
-	dpkg-deb -x wine-stable_7.1~focal-1_amd64.deb /home/container/wine-installer \
-	dpkg-deb -x wine-stable-i386_7.1~focal-1_i386.deb /home/container/wine-installer \
-        dpkg-deb -x wine-stable_7.1~focal-1_i386.deb /home/container/wine-installer \
+RUN dpkg-deb -x wine-stable-amd64_8.0.0.0~focal-1_amd64.deb /home/container/wine-installer \
+	dpkg-deb -x wine-stable_8.0.0.0~focal-1_amd64.deb /home/container/wine-installer \
+	dpkg-deb -x wine-stable-i386_8.0.0.0~focal-1_i386.deb /home/container/wine-installer \
+        dpkg-deb -x wine-stable_8.0.0.0~focal-1_i386.deb /home/container/wine-installer \
 	#echo -e "Installing wine . . ."
 	mv /home/container/wine-installer/opt/wine* /home/container/wine \
 
