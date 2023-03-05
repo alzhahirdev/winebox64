@@ -63,30 +63,30 @@ RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-securit
 RUN apt update && apt upgrade -y
 
 # Install wine manually
-RUN cd ~ \
+RUN cd /home/container \
         ls -a \
-        mkdir ~/wine-installer \
+        mkdir /home/container/wine-installer \
         ls -a
 
-RUN cd ~/wine-installer \
+RUN cd /home/container/wine-installer \
         wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable-amd64_7.1~focal-1_amd64.deb \
         wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_7.1~focal-1_amd64.deb \
         wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable-i386_7.1~focal-1_i386.deb \
         wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable_7.1~focal-1_i386.deb
 
-RUN dpkg-deb -x wine-stable-amd64_7.1~focal-1_amd64.deb ~/wine-installer \
-	dpkg-deb -x wine-stable_7.1~focal-1_amd64.deb ~/wine-installer \
-	dpkg-deb -x wine-stable-i386_7.1~focal-1_i386.deb ~/wine-installer \
-        dpkg-deb -x wine-stable_7.1~focal-1_i386.deb ~/wine-installer \
+RUN dpkg-deb -x wine-stable-amd64_7.1~focal-1_amd64.deb /home/container/wine-installer \
+	dpkg-deb -x wine-stable_7.1~focal-1_amd64.deb /home/container/wine-installer \
+	dpkg-deb -x wine-stable-i386_7.1~focal-1_i386.deb /home/container/wine-installer \
+        dpkg-deb -x wine-stable_7.1~focal-1_i386.deb /home/container/wine-installer \
 	#echo -e "Installing wine . . ."
-	mv ~/wine-installer/opt/wine* ~/wine \
+	mv /home/container/wine-installer/opt/wine* /home/container/wine \
 
         # Install symlinks
-	ln -s ~/wine/bin/wine /usr/local/bin/wine \
-	ln -s ~/wine/bin/wine64 /usr/local/bin/wine64 \
-	ln -s ~/wine/bin/wineboot /usr/local/bin/wineboot \
-	ln -s ~/wine/bin/winecfg /usr/local/bin/winecfg \
-	ln -s ~/wine/bin/wineserver /usr/local/bin/wineserver \
+	ln -s /home/container/wine/bin/wine /usr/local/bin/wine \
+	ln -s /home/container/wine/bin/wine64 /usr/local/bin/wine64 \
+	ln -s /home/container/wine/bin/wineboot /usr/local/bin/wineboot \
+	ln -s /home/container/wine/bin/winecfg /usr/local/bin/winecfg \
+	ln -s /home/container/wine/bin/wineserver /usr/local/bin/wineserver \
 	chmod +x /usr/local/bin/wine /usr/local/bin/wine64 /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver
 
 #RUN cd /home/container \
