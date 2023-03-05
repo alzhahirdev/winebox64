@@ -1,6 +1,13 @@
 #!/bin/bash
 cd /home/container
 
+ln -s /home/container/wine/bin/wine /usr/local/bin/wine
+ln -s /home/container/wine/bin/wine64 /usr/local/bin/wine64
+ln -s /home/container/wine/bin/wineboot /usr/local/bin/wineboot
+ln -s /home/container/wine/bin/winecfg /usr/local/bin/winecfg
+ln -s /home/container/wine/bin/wineserver /usr/local/bin/wineserver
+chmod +x /usr/local/bin/wine /usr/local/bin/wine64 /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver
+
 # Information output
 echo "Running on Debian $(cat /etc/debian_version)"
 echo "Current timezone: $(cat /etc/timezone)"
