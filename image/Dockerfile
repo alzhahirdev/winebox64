@@ -72,16 +72,16 @@ ARG URL64=https://dl.winehq.org/wine-builds/${OSNAME}/dists/${OSVER}/main/binary
 ARG URL86=https://dl.winehq.org/wine-builds/${OSNAME}/dists/${OSVER}/main/binary-i386/
 
 RUN mkdir /home/container/wine-installer
-RUN cd /home/container/wine-installer \
+RUN cd /home/container \
         && wget ${URL64}wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb \
         && wget ${URL64}wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_amd64.deb \
         && wget ${URL86}wine-${WINEBRANCH}-i386_${WINEVER}~${OSVER}-1_i386.deb \
         && wget ${URL86}wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb
 
-RUN dpkg-deb -x wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb /home/container/wine-installer \
-	&& dpkg-deb -x wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_amd64.deb /home/container/wine-installer \
-	&& dpkg-deb -x wine-${WINEBRANCH}-i386_${WINEVER}~${OSVER}-1_i386.deb /home/container/wine-installer \
-        && dpkg-deb -x wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb /home/container/wine-installer
+RUN dpkg-deb -x ~/wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb /home/container/wine-installer \
+	&& dpkg-deb -x ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_amd64.deb /home/container/wine-installer \
+	&& dpkg-deb -x ~/wine-${WINEBRANCH}-i386_${WINEVER}~${OSVER}-1_i386.deb /home/container/wine-installer \
+        && dpkg-deb -x ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb /home/container/wine-installer
 
 RUN mv /home/container/wine-installer/opt/wine* /home/container/wine \
         # Install symlinks
