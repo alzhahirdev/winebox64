@@ -83,7 +83,13 @@ RUN dpkg-deb -x ~/wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb /home
 	&& dpkg-deb -x ~/wine-${WINEBRANCH}-i386_${WINEVER}~${OSVER}-1_i386.deb /home/container/wine-installer \
         && dpkg-deb -x ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb /home/container/wine-installer
 
-RUN mv /home/container/wine-installer/opt/wine* /home/container/wine
+RUN mv /home/container/wine-installer/opt/wine* /home/container/wine \
+        && cp /home/container/wine/bin/wine /usr/local/bin/wine \
+        && cp /home/container/wine/bin/wine64 /usr/local/bin/wine64 \
+        && cp /home/container/wine/bin/wineboot /usr/local/bin/wineboot \
+        && cp /home/container/wine/bin/winecfg /usr/local/bin/winecfg \
+        && cp /home/container/wine/bin/wineserver /usr/local/bin/wineserver \
+        && chmod +x /usr/local/bin/wine /usr/local/bin/wine64 /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver
 
 #RUN cd /home/container \
 #        mkdir wine-installer \
@@ -107,7 +113,7 @@ RUN mv /home/container/wine-installer/opt/wine* /home/container/wine
 RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
         && chmod +x /usr/sbin/winetricks
 
-ENV HOME=/home/container
+#ENV HOME=/home/container
 ENV WINEARCH=win64
 ENV WINEPREFIX=/home/container/.wine64
 ENV WINEDLLOVERRIDES="mscoree,mshtml="
