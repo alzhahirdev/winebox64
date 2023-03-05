@@ -78,13 +78,12 @@ RUN cd /home/container \
         && wget ${URL86}wine-${WINEBRANCH}-i386_${WINEVER}~${OSVER}-1_i386.deb \
         && wget ${URL86}wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb
 
-RUN dpkg-deb -x ~/wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb /home/container/wine-installer \
-	&& dpkg-deb -x ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_amd64.deb /home/container/wine-installer \
-	&& dpkg-deb -x ~/wine-${WINEBRANCH}-i386_${WINEVER}~${OSVER}-1_i386.deb /home/container/wine-installer \
-        && dpkg-deb -x ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb /home/container/wine-installer
+RUN dpkg-deb -i ~/wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb \
+	&& dpkg-deb -i ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_amd64.deb \
+	&& dpkg-deb -i ~/wine-${WINEBRANCH}-i386_${WINEVER}~${OSVER}-1_i386.deb \
+        && dpkg-deb -i ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb
 
-RUN mv /home/container/wine-installer/opt/wine* /home/container/wine
-ENV PATH=/home/container/wine:${PATH}
+# RUN mv /home/container/wine-installer/opt/wine* /home/container/wine
 
 #RUN cd /home/container \
 #        mkdir wine-installer \
