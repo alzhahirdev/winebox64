@@ -63,6 +63,11 @@ RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-securit
 RUN apt update && apt upgrade -y
 
 # Install wine manually
+RUN cd ~ \
+        ls -a \
+        mkdir ~/wine-installer \
+        ls -a
+
 RUN cd ~/wine-installer \
         wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable-amd64_7.1~focal-1_amd64.deb \
         wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_7.1~focal-1_amd64.deb \
