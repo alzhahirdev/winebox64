@@ -84,6 +84,7 @@ RUN dpkg-deb -x ~/wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb /home
         && dpkg-deb -x ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb /home/container/wine-installer
 
 RUN mv /home/container/wine-installer/opt/wine* /home/container/wine
+ENV PATH=/home/container/wine:${PATH}
 
 #RUN cd /home/container \
 #        mkdir wine-installer \
