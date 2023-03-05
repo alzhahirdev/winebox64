@@ -85,12 +85,12 @@ RUN dpkg-deb -x ~/wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb /home
 
 RUN mv /home/container/wine-installer/opt/wine* /home/container/wine \
         # Install symlinks
-	ln -s /home/container/wine/bin/wine /usr/local/bin/wine \
-	ln -s /home/container/wine/bin/wine64 /usr/local/bin/wine64 \
-	ln -s /home/container/wine/bin/wineboot /usr/local/bin/wineboot \
-	ln -s /home/container/wine/bin/winecfg /usr/local/bin/winecfg \
-	ln -s /home/container/wine/bin/wineserver /usr/local/bin/wineserver \
-	chmod +x /usr/local/bin/wine /usr/local/bin/wine64 /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver
+	&& ln -s /home/container/wine/bin/wine /usr/local/bin/wine \
+	&& ln -s /home/container/wine/bin/wine64 /usr/local/bin/wine64 \
+	&& ln -s /home/container/wine/bin/wineboot /usr/local/bin/wineboot \
+	&& ln -s /home/container/wine/bin/winecfg /usr/local/bin/winecfg \
+	&& ln -s /home/container/wine/bin/wineserver /usr/local/bin/wineserver \
+	&& chmod +x /usr/local/bin/wine /usr/local/bin/wine64 /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver
 
 #RUN cd /home/container \
 #        mkdir wine-installer \
