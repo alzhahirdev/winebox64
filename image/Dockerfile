@@ -81,9 +81,6 @@ RUN mkdir -pm755 /etc/apt/keyrings \
 RUN wget -q -O /usr/local/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
         && chmod +x /usr/local/bin/winetricks
 
-## install some ms stuff
-RUN winetricks d3dx10 d3dx9_36 vcrun2005 vcrun2010 corefonts dxvk
-
 #ENV HOME=/home/container
 ENV WINEARCH=win64
 ENV WINEPREFIX=/home/container/.wine64
