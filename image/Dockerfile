@@ -77,47 +77,6 @@ RUN mkdir -pm755 /etc/apt/keyrings \
         && apt update \
         && apt install --install-recommends winehq-stable -y
 
-# Install wine manually
-#ARG WINEVER=8.0.0.0
-#ARG WINEBRANCH=stable
-#ARG WINETAG=-1
-#ARG OSNAME=ubuntu
-#ARG OSVER=focal
-#ARG URL64=https://dl.winehq.org/wine-builds/${OSNAME}/dists/${OSVER}/main/binary-amd64/
-#ARG URL86=https://dl.winehq.org/wine-builds/${OSNAME}/dists/${OSVER}/main/binary-i386/
-
-#RUN mkdir /home/container/wine-installer
-#RUN cd /home/container \
-#        && wget ${URL64}wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb \
-#        && wget ${URL64}wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_amd64.deb \
-#        && wget ${URL86}wine-${WINEBRANCH}-i386_${WINEVER}~${OSVER}-1_i386.deb \
-#        && wget ${URL86}wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb
-
-#RUN dpkg --force-all -i ~/wine-${WINEBRANCH}-amd64_${WINEVER}~${OSVER}-1_amd64.deb \
-#	&& dpkg --force-all -i ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_amd64.deb \
-#	&& dpkg --force-all -i ~/wine-${WINEBRANCH}-i386_${WINEVER}~${OSVER}-1_i386.deb \
-#        && dpkg --force-all -i ~/wine-${WINEBRANCH}_${WINEVER}~${OSVER}-1_i386.deb
-
-# RUN mv /home/container/wine-installer/opt/wine* /home/container/wine
-
-#RUN cd /home/container \
-#        mkdir wine-installer \
-#        cd wine-installer \
-#        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_6.0.4~focal-1_amd64.deb \
-#        wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable_6.0.4~focal-1_i386.deb \
-#        dpkg-deb -xv wine-stable_6.0.4~focal-1_amd64.deb . \
-#        dpkg-deb -xv wine-stable_6.0.4~focal-1_i386.deb . \
-#        ls -a \
-#        mv ~/wine-installer/opt/wine* ~/wine \
-#        rm -rf wine-installer \
-#        ln -s /home/container/wine/bin/wine /usr/local/bin/wine \
-#        ln -s /home/container/wine/bin/wine64 /usr/local/bin/wine64 \
-#        ln -s /home/container/wine/bin/wineboot /usr/local/bin/wineboot \
-#        ln -s /home/container/wine/bin/winecfg /usr/local/bin/winecfg \
-#        ln -s /home/container/wine/bin/wineserver /usr/local/bin/wineserver \
-#        chmod +x /usr/local/bin/wine /usr/local/bin/wineboot /usr/local/bin/winecfg /usr/local/bin/wineserver \
-#        echo 'alias wine64="WINEPREFIX=~/.wine64 wine"' >> ~/.bashrc
-
 ## setup winetricks
 RUN wget -q -O /usr/local/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
         && chmod +x /usr/local/bin/winetricks
