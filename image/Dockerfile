@@ -75,11 +75,16 @@ RUN mkdir -pm755 /etc/apt/keyrings \
         && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
         && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources \
         && apt update \
-        && apt install --install-recommends winehq-stable -y
+        && apt install --install-recommends winehq-stable=6.0.4 -y
 
 ## setup winetricks
 RUN wget -q -O /usr/local/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
         && chmod +x /usr/local/bin/winetricks
+
+# Install MS stuff
+USER container
+RUN winetricks d3dx10 d3dx9_36 vcrun2005 vcrun2010 corefonts dxvk
+USER root
 
 #ENV HOME=/home/container
 ENV WINEARCH=win64

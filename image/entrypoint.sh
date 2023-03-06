@@ -6,9 +6,6 @@ echo "Running on Debian $(cat /etc/debian_version)"
 echo "Current timezone: $(cat /etc/timezone)"
 wine --version
 
-# Install MS stuff
-winetricks d3dx10 d3dx9_36 vcrun2005 vcrun2010 corefonts dxvk
-
 # Make internal Docker IP address available to processes.
 INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
 export INTERNAL_IP
