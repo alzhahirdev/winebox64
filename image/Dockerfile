@@ -61,6 +61,7 @@ RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-securit
 RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
 RUN apt update && apt upgrade -y
+RUN apt install libgcc-s1:amd64 libgcc-s1:i386 libc6:amd64 libc6:i386 gcc-10-base:amd64 gcc-10-base:i386 -y
 
 # Install libstdc++6 manually
 RUN cd /home/container \
@@ -74,7 +75,7 @@ RUN mkdir -pm755 /etc/apt/keyrings \
         && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
         && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources \
         && apt update \
-        && apt install --install-recommends winehq-stable libstdc++6:amd64- libstdc++6:i386- -y
+        && apt install --install-recommends winehq-stable -y
 
 # Install wine manually
 #ARG WINEVER=8.0.0.0
