@@ -64,18 +64,18 @@ RUN apt update && apt upgrade -y
 RUN apt install libgcc-s1:amd64 libgcc-s1:i386 libc6:amd64 libc6:i386 gcc-10-base:amd64 gcc-10-base:i386 -y
 
 # Install libstdc++6 manually
-RUN cd /home/container \
-        && wget http://mirrors.kernel.org/ubuntu/pool/main/g/gcc-10/libstdc++6_10.3.0-1ubuntu1~20.04_i386.deb \
-        && wget http://security.ubuntu.com/ubuntu/pool/main/g/gcc-10/libstdc++6_10.3.0-1ubuntu1~20.04_amd64.deb \
-        && dpkg --force-all -i libstdc++6_10.3.0-1ubuntu1~20.04_i386.deb \
-        && dpkg --force-all -i libstdc++6_10.3.0-1ubuntu1~20.04_amd64.deb
+#RUN cd /home/container \
+#        && wget http://mirrors.kernel.org/ubuntu/pool/main/g/gcc-10/libstdc++6_10.3.0-1ubuntu1~20.04_i386.deb \
+#        && wget http://security.ubuntu.com/ubuntu/pool/main/g/gcc-10/libstdc++6_10.3.0-1ubuntu1~20.04_amd64.deb \
+#        && dpkg --force-all -i libstdc++6_10.3.0-1ubuntu1~20.04_i386.deb \
+#        && dpkg --force-all -i libstdc++6_10.3.0-1ubuntu1~20.04_amd64.deb
 
 # Install wine
 RUN mkdir -pm755 /etc/apt/keyrings \
         && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
         && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources \
         && apt update \
-        && apt install --install-recommends winehq-stable:amd64 winehq-stable:i386 -y
+        && apt install --install-recommends winehq-stable:amd64=6.0.4~focal-1 -y
 
 ## setup winetricks
 RUN wget -q -O /usr/local/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
