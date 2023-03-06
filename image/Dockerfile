@@ -119,8 +119,8 @@ RUN mkdir -pm755 /etc/apt/keyrings \
 #        echo 'alias wine64="WINEPREFIX=~/.wine64 wine"' >> ~/.bashrc
 
 ## setup winetricks
-RUN wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
-        && chmod +x /usr/sbin/winetricks
+RUN wget -q -O /usr/local/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
+        && chmod +x /usr/local/bin/winetricks
 
 #ENV HOME=/home/container
 ENV WINEARCH=win64
