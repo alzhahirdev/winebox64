@@ -93,7 +93,7 @@ RUN wget -q -O /usr/local/bin/winetricks https://raw.githubusercontent.com/Winet
 
 # Install MS stuff
 USER container
-RUN winetricks d3dx10 d3dx9_36 vcrun2005 vcrun2010 corefonts dxvk
+RUN winetricks corefonts d3dx10 d3dx9_36 vcrun2005 vcrun2010 dxvk
 USER root
 
 #ENV HOME=/home/container
