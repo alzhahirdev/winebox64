@@ -71,11 +71,21 @@ RUN cd /home/container \
         && dpkg --force-all -i libstdc++6_10.3.0-1ubuntu1~20.04_amd64.deb
 
 # Install wine
-RUN mkdir -pm755 /etc/apt/keyrings \
-        && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
-        && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources \
-        && apt update \
-        && apt install --no-install-recommends wine-stable-amd64:amd64=6.0.4~focal-1 wine-stable-i386:i386=6.0.4~focal-1 wine-stable:amd64=6.0.4~focal-1 winehq-stable=6.0.4~focal-1 -y
+RUN cd /home/container \
+        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable-amd64_6.0.4~focal-1_amd64.deb \
+        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable-i386_6.0.4~focal-1_i386.deb \
+        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_6.0.4~focal-1_amd64.deb \
+        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/winehq-stable_6.0.4~focal-1_amd64.deb \
+        && dpkg --force-all -i wine-stable-amd64_6.0.4~focal-1_amd64.deb \
+        && dpkg --force-all -i wine-stable-i386_6.0.4~focal-1_i386.deb \
+        && dpkg --force-all -i wine-stable_6.0.4~focal-1_amd64.deb \
+        && dpkg --force-all -i winehq-stable_6.0.4~focal-1_amd64.deb
+
+#RUN mkdir -pm755 /etc/apt/keyrings \
+#        && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
+#        && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources \
+#        && apt update \
+#        && apt install --no-install-recommends wine-stable-amd64:amd64=6.0.4~focal-1 wine-stable-i386:i386=6.0.4~focal-1 wine-stable:amd64=6.0.4~focal-1 winehq-stable=6.0.4~focal-1 -y
 
 ## setup winetricks
 RUN wget -q -O /usr/local/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
