@@ -61,7 +61,7 @@ RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-securit
 RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security universe" >> /etc/apt/sources.list
 RUN echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ focal-security multiverse" >> /etc/apt/sources.list
 RUN apt update && apt upgrade -y
-RUN apt install libgcc-s1:amd64 libgcc-s1:i386 libc6:amd64 libc6:i386 gcc-10-base:amd64 gcc-10-base:i386 libvkd3d1:amd64 libvkd3d1:i386 -y
+RUN apt install libgcc-s1:amd64 libgcc-s1:i386 libc6:amd64 libc6:i386 gcc-10-base:amd64 gcc-10-base:i386 -y
 
 # Install libstdc++6 manually
 RUN cd /home/container \
