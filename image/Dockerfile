@@ -71,7 +71,8 @@ RUN cd /home/container \
         && dpkg --force-all -i libstdc++6_10.3.0-1ubuntu1~20.04_amd64.deb
 
 # Install more dependencies
-RUN apt update && apt install libvkd3d1:amd64 libvkd3d1:i386 -y
+RUN apt update && apt install libvkd3d1:amd64 libvkd3d1:i386 \
+        winbind:amd64 winbind:i386 xvfb:amd64 xvfb:i386 zenity:amd64 zenity:i386 -y
 
 # Install wine
 #RUN cd /home/container \
@@ -88,7 +89,9 @@ RUN mkdir -pm755 /etc/apt/keyrings \
         && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
         && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources \
         && apt update \
-        && apt install --install-recommends wine-stable-amd64=7.0.1~focal-1 wine-stable-i386:i386=7.0.1~focal-1 wine-stable:amd64=7.0.1~focal-1 winehq-stable=7.0.1~focal-1 -y
+        && apt install --install-recommends wine-stable-amd64=7.0.1~focal-1 \
+        wine-stable-i386:i386=7.0.1~focal-1 wine-stable:amd64=7.0.1~focal-1 \
+        winehq-stable=7.0.1~focal-1 -y
 
 ## setup winetricks
 RUN wget -q -O /usr/local/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
@@ -101,7 +104,7 @@ USER root
 
 #ENV HOME=/home/container
 ENV WINEARCH=win64
-ENV WINEPREFIX=/home/container/.wine64
+ENV WINEPREFIX=/home/container/.wine
 ENV WINEDLLOVERRIDES="mscoree,mshtml="
 ENV DISPLAY=:0
 ENV DISPLAY_WIDTH=1024
