@@ -70,6 +70,9 @@ RUN cd /home/container \
         && dpkg --force-all -i libstdc++6_10.3.0-1ubuntu1~20.04_i386.deb \
         && dpkg --force-all -i libstdc++6_10.3.0-1ubuntu1~20.04_amd64.deb
 
+# Install more dependencies
+RUN apt update && apt install libvkd3d1:amd64 libvkd3d1:i386 -y
+
 # Install wine
 #RUN cd /home/container \
 #        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable-amd64_6.0.4~focal-1_amd64.deb \
@@ -85,7 +88,7 @@ RUN mkdir -pm755 /etc/apt/keyrings \
         && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
         && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources \
         && apt update \
-        && apt install --install-recommends winehq-stable=7.0.1~focal-1 -y
+        && apt install --install-recommends wine-stable-amd64=7.0.1~focal-1 wine-stable-i386:i386=7.0.1~focal-1 wine-stable=7.0.1~focal-1 winehq-stable=7.0.1~focal-1 -y
 
 ## setup winetricks
 RUN wget -q -O /usr/local/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
