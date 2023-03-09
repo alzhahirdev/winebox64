@@ -72,7 +72,7 @@ RUN cd /home/container \
 
 # Install more dependencies
 RUN apt update && apt install libvkd3d1:amd64 libvkd3d1:i386 \
-        winbind xvfb:amd64 xvfb:i386 zenity:amd64 zenity:i386 -y
+        winbind xvfb zenity -y
 
 # Install wine
 #RUN cd /home/container \
