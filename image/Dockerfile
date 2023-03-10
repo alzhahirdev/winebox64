@@ -116,7 +116,7 @@ RUN update-locale lang=en_US.UTF-8 && dpkg-reconfigure --frontend noninteractive
 # Install MS stuff
 USER container
 RUN wine wineboot
-RUN winetricks corefonts d3dx10 d3dx9_36 vcrun2005 vcrun2010 dxvk
+RUN winetricks corefonts d3dx10 d3dx9_36 vcrun2010 dxvk
 USER root
 
 WORKDIR /home/container
