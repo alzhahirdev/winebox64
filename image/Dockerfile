@@ -111,8 +111,10 @@ ENV XVFB=1
 ## configure locale
 RUN update-locale lang=en_US.UTF-8 && dpkg-reconfigure --frontend noninteractive locales
 
+# init wine
 # Install MS stuff
 USER container
+RUN wine wineboot
 RUN winetricks corefonts d3dx10 d3dx9_36 vcrun2005 vcrun2010 dxvk
 USER root
 
