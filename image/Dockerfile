@@ -98,6 +98,7 @@ RUN wget -q -O /usr/local/bin/winetricks https://raw.githubusercontent.com/Winet
         && chmod +x /usr/local/bin/winetricks
 
 #ENV HOME=/home/container
+ENV WINEARCH=win32 WINEPREFIX=/home/container/.wine32 winecfg
 ENV WINEARCH=win64
 ENV WINEPREFIX=/home/container/.wine
 ENV WINEDLLOVERRIDES="mscoree,mshtml="
