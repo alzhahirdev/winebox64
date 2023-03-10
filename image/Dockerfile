@@ -12,7 +12,6 @@ ENV USER=container HOME=/home/container
 RUN apt update && apt upgrade -y
 RUN apt install -y iproute2 gnupg2 tzdata software-properties-common libntlm0 winbind xvfb xauth python3 wget ca-certificates locales apt-transport-https
 
-ENV DISPLAY=:0
 ENV BOX86_PATH=~/wine/bin/
 ENV BOX86_LD_LIBRARY_PATH=~/wine/lib/wine/i386-unix/:/lib/i386-linux-gnu:/lib/aarch64-linux-gnu/
 ENV BOX64_PATH=~/wine64/bin/
@@ -98,11 +97,6 @@ RUN mkdir -pm755 /etc/apt/keyrings \
 RUN wget -q -O /usr/local/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
         && chmod +x /usr/local/bin/winetricks
 
-# Install MS stuff
-USER container
-RUN winetricks corefonts d3dx10 d3dx9_36 vcrun2005 vcrun2010 dxvk
-USER root
-
 #ENV HOME=/home/container
 ENV WINEARCH=win64
 ENV WINEPREFIX=/home/container/.wine
@@ -116,6 +110,11 @@ ENV XVFB=1
 
 ## configure locale
 RUN update-locale lang=en_US.UTF-8 && dpkg-reconfigure --frontend noninteractive locales
+
+# Install MS stuff
+USER container
+RUN winetricks corefonts d3dx10 d3dx9_36 vcrun2005 vcrun2010 dxvk
+USER root
 
 WORKDIR /home/container
 COPY ./entrypoint.sh /entrypoint.sh
