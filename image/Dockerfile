@@ -12,6 +12,7 @@ ENV USER=container HOME=/home/container
 RUN apt update && apt upgrade -y
 RUN apt install -y iproute2 gnupg2 tzdata software-properties-common libntlm0 winbind xvfb xauth python3 wget ca-certificates locales apt-transport-https
 
+ENV DISPLAY=:0
 ENV BOX86_PATH=~/wine/bin/
 ENV BOX86_LD_LIBRARY_PATH=~/wine/lib/wine/i386-unix/:/lib/i386-linux-gnu:/lib/aarch64-linux-gnu/
 ENV BOX64_PATH=~/wine64/bin/
