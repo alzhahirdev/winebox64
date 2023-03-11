@@ -74,17 +74,6 @@ RUN cd /home/container \
 RUN apt update && apt install libvkd3d1:amd64 libvkd3d1:i386 \
         winbind xvfb zenity -y
 
-# Install wine
-#RUN cd /home/container \
-#        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable-amd64_6.0.4~focal-1_amd64.deb \
-#        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-i386/wine-stable-i386_6.0.4~focal-1_i386.deb \
-#        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/wine-stable_6.0.4~focal-1_amd64.deb \
-#        && wget https://dl.winehq.org/wine-builds/ubuntu/dists/focal/main/binary-amd64/winehq-stable_6.0.4~focal-1_amd64.deb \
-#        && dpkg --force-all -i wine-stable-amd64_6.0.4~focal-1_amd64.deb \
-#        && dpkg --force-all -i wine-stable-i386_6.0.4~focal-1_i386.deb \
-#        && dpkg --force-all -i wine-stable_6.0.4~focal-1_amd64.deb \
-#        && dpkg --force-all -i winehq-stable_6.0.4~focal-1_amd64.deb
-
 RUN mkdir -pm755 /etc/apt/keyrings \
         && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
         && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources \
@@ -116,7 +105,7 @@ RUN update-locale lang=en_US.UTF-8 && dpkg-reconfigure --frontend noninteractive
 USER container
 RUN wine wineboot
 RUN winetricks corefonts d3dx10 d3dx9_36
-RUN winetricks dxvk vcrun2005
+# RUN winetricks dxvk vcrun2005
 USER root
 
 WORKDIR /home/container
