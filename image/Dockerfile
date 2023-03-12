@@ -40,8 +40,8 @@ RUN apt update && apt install libasound2 libc6:armhf libglib2.0-0 libgphoto2-6 l
         libmpg123-0:armhf libtinfo5:armhf cabextract libxslt1.1:armhf zenity:armhf mesa*:armhf box86 -y
 
 # install mono
-RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF \
-        && echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list \
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF \
+        && echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | tee /etc/apt/sources.list.d/mono-official-stable.list \
         && apt update \
         && apt install mono-complete
 
